@@ -11,7 +11,7 @@ class Team:
     self.power = newPower
 
   def reportPower(self):
-    if self.tank = True:
+    if self.tank == True:
       return 0
     else:
       return self.power
