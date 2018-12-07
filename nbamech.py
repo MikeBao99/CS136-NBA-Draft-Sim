@@ -52,22 +52,12 @@ def runmech(powers):
   worst_fourteen = first_three + real_final_eleven
 
   final_draft_order = worst_fourteen + powers[14:]
-  print(final_draft_order)
 
   for i in range(len(final_draft_order)):
-    print(powers[i])
-    print(powers[i][1])
-    print(draftee_score[i])
-    print(powers[i][1] + draftee_score[i])
-    powers[i] = (final_draft_order[i][0], final_draft_order[i][1] + draftee_score[i])
+    powers[i] = (final_draft_order[i][0], final_draft_order[i][1] * 0.9 + draftee_score[i])
 
   return powers
 
-
-ids = list(range(1, 31))
-powers = list(range(85, 115))
-
-print(runmech(zip(ids, powers)))
 
 
 

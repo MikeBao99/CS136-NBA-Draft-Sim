@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from team import Team
 from random import random
 import numpy as np
+from nbamech import runmech
 
 num_teams = 30
 num_years = 100
@@ -18,8 +19,10 @@ def dummy_mech(x):
 def main():
 	# Initialize Teams
 	teams = []
-	for i in range(num_teams):
+	for i in range(num_teams-5):
 		teams.append(Team(i, 100, 0))
+	for i in range(5):
+		teams.append(Team(25+i, 100, True))
 	history = []
 	utilities = [0] * num_teams
 
@@ -32,10 +35,11 @@ def main():
 		# Run mechanism
 		true_powers = [x.getPower() for x in teams]
 		powers = [x.reportPower() for x in teams]
+		print(powers)
 		ind_power = []
 		for i in range(num_teams):
 			ind_power.append((i, powers[i]))
-		new_power = sorted(dummy_mech(ind_power), key=lambda x: x[0])
+		new_power = sorted(runmech(ind_power), key=lambda x: x[0])
 		new_power = [x[1] for x in new_power]
 
 		for i in range(num_teams):
@@ -49,8 +53,9 @@ def main():
 			history[i].append(true_powers[i])
 
 		# Update utilities
-		rankings = sorted(powers)
+		rankings = sorted(powers, reverse=True)
 		rankings = [rankings.index(x) for x in powers]
+		print(rankings)
 		for i in range(num_teams):
 			if rankings[i] == 0:
 				utilities[i] += pos_util[0]
