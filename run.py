@@ -5,9 +5,15 @@ from random import random
 import numpy as np
 
 num_teams = 30
-num_years = 100
+num_years = 1000
 
 pos_util = [10, 8, 5, 3]
+
+def mech(x):
+	ans = []
+	for i in range(len(x)):
+		ans.append((i, x[i][1] + 5 * (random() - 0.5)))
+	return ans 
 
 def main():
 	# Initialize Teams
@@ -26,10 +32,14 @@ def main():
 		# Run mechanism
 		true_powers = [x.getPower() for x in teams]
 		powers = [x.reportPower() for x in teams]
-		new_power = mech(powers)
+		ind_power = []
+		for i in range(num_teams):
+			ind_power.append((i, powers[i]))
+		new_power = sorted(mech(ind_power), key=lambda x: x[0])
+		new_power = [x[1] for x in new_power]
 
 		for i in range(num_teams):
-			new_power[i] = true_powers[i] + new_power[i] - powers[]
+			new_power[i] = true_powers[i] + new_power[i] - powers[i]
 
 		for i in range(num_teams):
 			teams[i].setPower(new_power[i])
@@ -65,6 +75,9 @@ def main():
 	# Visualize Result
 	for i in range(num_teams):
 		plt.plot(range(num_years), history[i])
+		plt.title("NBA Team Power Ratings over %d Years" % (num_years))
+		plt.ylabel("Power Rating")
+		plt.xlabel("Year")
 	plt.show()
 
 
