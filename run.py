@@ -5,11 +5,11 @@ from random import random
 import numpy as np
 
 num_teams = 30
-num_years = 1000
+num_years = 100
 
 pos_util = [10, 8, 5, 3]
 
-def mech(x):
+def dummy_mech(x):
 	ans = []
 	for i in range(len(x)):
 		ans.append((i, x[i][1] + 5 * (random() - 0.5)))
@@ -35,7 +35,7 @@ def main():
 		ind_power = []
 		for i in range(num_teams):
 			ind_power.append((i, powers[i]))
-		new_power = sorted(mech(ind_power), key=lambda x: x[0])
+		new_power = sorted(dummy_mech(ind_power), key=lambda x: x[0])
 		new_power = [x[1] for x in new_power]
 
 		for i in range(num_teams):
