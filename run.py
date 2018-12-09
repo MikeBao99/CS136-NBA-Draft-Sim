@@ -91,12 +91,13 @@ def main():
 
 
   # Visualize Result
-  f, ax = plt.subplots(1,2, figsize=(15,8))
+  f, ax = plt.subplots(1,2, figsize=(15,8), sharey=True)
   for i in range(num_teams):
     ax[0].plot(range(num_years), history[i])
     ax[0].set_title("NBA Team Power Ratings over %d Years" % (num_years))
     ax[0].set_ylabel("Power Rating")
     ax[0].set_xlabel("Year")
+
 
   for i in range(num_teams):
     ax[1].plot(range(num_years), history_report[i])

@@ -25,7 +25,7 @@ def runmech(powers):
   powers = sorted(powers, key=lambda x: x[1])
   print(powers)
   # picks worst 14 teams
-  lottery = powers[:14]
+  lottery_entrees = powers[:14]
 
   # makes sure that no teams have same score
   distinct = -1
@@ -78,7 +78,7 @@ def runmech(powers):
 
   # adds the new draftee scores to the teams
   for i in range(len(draft_order)):
-    powers[i] = (draft_order[i][0], round(draft_order[i][1] * 0.9 + draftee_score[i],1))
+    powers[i] = (draft_order[i][0], round(draft_order[i][1] + draftee_score[i],1))
 
   return powers
 

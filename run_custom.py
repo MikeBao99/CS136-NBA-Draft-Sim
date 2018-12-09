@@ -4,7 +4,7 @@ from team import Team
 from random import random
 import numpy as np
 import pandas as pd
-from nbamech import runmech
+from nbamech_2019 import runmech
 
 num_teams = 30
 num_years = 10
@@ -101,7 +101,7 @@ def main():
 
 
   # Visualize Result
-  f, ax = plt.subplots(1,2, figsize=(15,8))
+  f, ax = plt.subplots(1,2, figsize=(15,8), sharey=True)
   for i in range(num_teams):
     ax[0].plot(range(num_years), history[i])
     ax[0].set_title("NBA Team Power Ratings over %d Years" % (num_years))
