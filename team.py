@@ -1,3 +1,5 @@
+from random import random
+
 class Team:
   def __init__(self, id, power, tank):
     self.id = id
@@ -11,7 +13,7 @@ class Team:
     self.power = newPower
 
   def reportPower(self):
-    if self.tank == True:
+    if self.tank == True and random() < 0.33:
       return 0
     else:
       return self.power
