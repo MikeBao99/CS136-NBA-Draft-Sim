@@ -7,7 +7,7 @@ import pandas as pd
 from nbamech_2019 import runmech
 
 num_teams = 30
-num_years = 10
+num_years = 100
 
 pos_util = [10, 8, 5, 3, -2]
 init_powers = []
@@ -23,9 +23,9 @@ def main():
   # Initialize Teams
   teams = []
   for i in range(num_teams-5):
-    teams.append(Team(i, 85 + 3 * i, 0))
+    teams.append(Team(i, 100, 0))
   for i in range(5):
-    teams.append(Team(25+i, 90 + i, 1))
+    teams.append(Team(25+i, 100, 1))
   history = []
   history_report = []
   stdevs = []
@@ -55,7 +55,7 @@ def main():
     new_power = [x[1] for x in new_power]
 
     for i in range(num_teams):
-      new_power[i] = true_powers[i] + new_power[i] - powers[i]
+      new_power[i] = true_powers[i] + new_power[i] - ave_powers[i]
 
     total = sum(new_power)
     new_power = [x * (num_teams * 100.) / total for x in new_power]
@@ -89,6 +89,7 @@ def main():
     # Create dataframe
     df[year] = rankings
 
+  indices = [0, 5, 10, 15, 20, 26, 27, 28, 29]
   for i in range(num_teams):
     print("Team %d:" % (i))
     print("\tAverage Power: %f" % (sum(history[i])/float(num_years)))
@@ -102,13 +103,13 @@ def main():
 
   # Visualize Result
   f, ax = plt.subplots(1,2, figsize=(15,8), sharey=True)
-  for i in range(num_teams):
+  for i in indices:
     ax[0].plot(range(num_years), history[i])
     ax[0].set_title("NBA Team Power Ratings over %d Years" % (num_years))
     ax[0].set_ylabel("Power Rating")
     ax[0].set_xlabel("Year")
 
-  for i in range(num_teams):
+  for i in indices:
     ax[1].plot(range(num_years), history_report[i])
     ax[1].set_title("NBA Team Reported Power Ratings over %d Years" % (num_years))
     ax[1].set_ylabel("Power Rating")
