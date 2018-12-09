@@ -23,9 +23,9 @@ def main():
   # Initialize Teams
   teams = []
   for i in range(num_teams-5):
-    teams.append(Team(i, 85 + 3 * i, 0))
+    teams.append(Team(i, 100, 0))
   for i in range(5):
-    teams.append(Team(25+i, 97 + i, 1))
+    teams.append(Team(25+i, 100, 1))
   history = []
   history_report = []
   stdevs = []
@@ -49,8 +49,8 @@ def main():
     new_power = [x[1] for x in new_power]
     for i in range(num_teams):
       new_power[i] = true_powers[i] + new_power[i] - powers[i]
-    # total = sum(new_power)
-    # new_power = [x * (num_teams * 100.) / total for x in new_power]
+    total = sum(new_power)
+    new_power = [x * (num_teams * 100.) / total for x in new_power]
 
     for i in range(num_teams):
       teams[i].setPower(new_power[i])

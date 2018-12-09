@@ -76,7 +76,7 @@ def runmech(powers):
 
   # adds the new draftee scores to the teams
   for i in range(len(draft_order)):
-    powers[i] = (draft_order[i][0], round(draft_order[i][1] * 0.9 + draftee_score[i],1))
+    powers[i] = (draft_order[i][0], round(draft_order[i][1] + draftee_score[i],1))
 
   return powers
 
