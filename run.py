@@ -7,7 +7,7 @@ import pandas as pd
 from nbamech import runmech
 
 num_teams = 30
-num_years = 10
+num_years = 100
 
 pos_util = [10, 8, 5, 3]
 init_powers = []
@@ -47,11 +47,10 @@ def main():
       ind_power.append((i, powers[i]))
     new_power = sorted(runmech(ind_power), key=lambda x: x[0])
     new_power = [x[1] for x in new_power]
-    total = sum(new_power)
-    new_power = [x * (num_teams * 100.) / total for x in new_power]
-
     for i in range(num_teams):
       new_power[i] = true_powers[i] + new_power[i] - powers[i]
+    # total = sum(new_power)
+    # new_power = [x * (num_teams * 100.) / total for x in new_power]
 
     for i in range(num_teams):
       teams[i].setPower(new_power[i])
@@ -76,8 +75,6 @@ def main():
         utilities[i] += pos_util[2]
       elif rankings[i] < 16:
         utilities[i] += pos_util[3]
-      elif rankings[i] > 24:
-        utilities[i] += pos_util[4]
 
     # Create dataframe
     df[year] = rankings
