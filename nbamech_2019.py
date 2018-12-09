@@ -19,6 +19,7 @@ def runmech(powers):
     draftee_score.append(round(i, 2))
 
   draftee_score.sort(reverse=True)
+  # print(draftee_score)
 
   # sorts from worst to best
   powers = sorted(powers, key=lambda x: x[1])
@@ -65,13 +66,19 @@ def runmech(powers):
   final_draft_order = worst_fourteen + powers[14:]
 
   for i in range(len(final_draft_order)):
-    powers[i] = (final_draft_order[i][0], round(final_draft_order[i][1] * 0.85 + draftee_score[i],1))
+    powers[i] = (final_draft_order[i][0], round(final_draft_order[i][1] + draftee_score[i],1))
 
   return powers
 
 ids = list(range(1,31))
 skill = list(range(85,115))
-print(sorted(runmech(zip(ids,skill)), key=lambda x: x[1]))
+final_output = sorted(runmech(zip(ids,skill)), key=lambda x: x[1])
+# print(final_output)
+# print("~~~~~~~~~~~~~~~~~~")
+# counter = 0
+# for i in range(len(final_output)):
+#   counter += abs(final_output[i][0] - (i+1))
+# print(counter)
 
 
 
