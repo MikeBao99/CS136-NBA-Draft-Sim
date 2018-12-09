@@ -65,7 +65,7 @@ def runmech(powers):
   final_draft_order = worst_fourteen + powers[14:]
 
   for i in range(len(final_draft_order)):
-    powers[i] = (final_draft_order[i][0], round(final_draft_order[i][1] * 0.85 + draftee_score[i],1))
+    powers[i] = (final_draft_order[i][0], round(final_draft_order[i][1] + draftee_score[i],1))
 
   return powers
 

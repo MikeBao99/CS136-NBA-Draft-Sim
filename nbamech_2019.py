@@ -23,6 +23,7 @@ def runmech(powers):
 
   # sorts from worst to best
   powers = sorted(powers, key=lambda x: x[1])
+  print(powers)
   # picks worst 14 teams
   lottery = powers[:14]
 
