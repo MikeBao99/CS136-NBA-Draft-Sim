@@ -90,6 +90,18 @@ def main():
   print("----------------------------------------")
 
 
+  print("Non-Tanking Teams:")
+  print("\tAverage Power: %f" % (sum([sum(history[i])/float(num_years) for i in range(25)])/25.0))
+  print("\tAverage Reported Power: %f" % (sum([sum(history_report[i])/float(num_years) for i in range(25)])/25.0))
+  print("\tAverage Utility: %f" % (sum(utilities[:25])/float(num_years * 25)))
+  print("----------------------------------------")
+
+  print("Tanking Teams:")
+  print("\tAverage Power: %f" % (sum([sum(history[i])/float(num_years) for i in range(25,30)])/5.0))
+  print("\tAverage Reported Power: %f" % (sum([sum(history_report[i])/float(num_years) for i in range(25,30)])/5.0))
+  print("\tAverage Utility: %f" % (sum(utilities[25:])/float(num_years * 5)))
+  print("----------------------------------------")
+
   # Visualize Result
   f, ax = plt.subplots(1,2, figsize=(15,8), sharey=True)
   for i in range(num_teams):

@@ -93,8 +93,21 @@ def main():
   for i in range(num_teams):
     print("Team %d:" % (i))
     print("\tAverage Power: %f" % (sum(history[i])/float(num_years)))
+    print("\tAverage Reported Power: %f" % (sum(history_report[i])/float(num_years)))
     print("\tAverage Utility: %f" % (utilities[i]/float(num_years)))
     print("----------------------------------------")
+
+  print("Non-Tanking Teams:")
+  print("\tAverage Power: %f" % (sum([sum(history[i])/float(num_years) for i in range(25)])/25.0))
+  print("\tAverage Reported Power: %f" % (sum([sum(history_report[i])/float(num_years) for i in range(25)])/25.0))
+  print("\tAverage Utility: %f" % (sum(utilities[:25])/float(num_years * 25)))
+  print("----------------------------------------")
+
+  print("Tanking Teams:")
+  print("\tAverage Power: %f" % (sum([sum(history[i])/float(num_years) for i in range(25,30)])/5.0))
+  print("\tAverage Reported Power: %f" % (sum([sum(history_report[i])/float(num_years) for i in range(25,30)])/5.0))
+  print("\tAverage Utility: %f" % (sum(utilities[25:])/float(num_years * 5)))
+  print("----------------------------------------")
 
   print("Overall:")
   print("\tAverage Power Variance: %f" % (sum(stdevs)/float(num_years)))
