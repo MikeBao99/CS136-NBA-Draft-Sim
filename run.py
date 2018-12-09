@@ -3,12 +3,13 @@ import matplotlib.pyplot as plt
 from team import Team
 from random import random
 import numpy as np
-from nbamech import runmech
+from nbamech_2019 import runmech
 
 num_teams = 30
-num_years = 50
+num_years = 100
 
 pos_util = [10, 8, 5, 3]
+init_powers = []
 
 def dummy_mech(x):
 	ans = []
@@ -19,10 +20,10 @@ def dummy_mech(x):
 def main():
 	# Initialize Teams
 	teams = []
-	for i in range(num_teams - 5):
-		teams.append(Team(i, 85+i, 0))
-	for i in range(5):
-		teams.append(Team(25+i, 100, 1))
+	for i in range(num_teams):
+		teams.append(Team(i, 60 + 3 * i, 0))
+	# for i in range(5):
+	# 	teams.append(Team(25+i, 100, 1))
 	history = []
 	history_report = []
 	stdevs = []
@@ -45,7 +46,7 @@ def main():
 		new_power = sorted(runmech(ind_power), key=lambda x: x[0])
 		new_power = [x[1] for x in new_power]
 		total = sum(new_power)
-
+		new_power = [x * (num_teams * 100.) / total for x in new_power]
 
 		for i in range(num_teams):
 			new_power[i] = true_powers[i] + new_power[i] - powers[i]

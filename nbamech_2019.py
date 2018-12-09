@@ -1,8 +1,8 @@
 from random import randint
 import numpy
 
-prob_dist = [250, 199, 156, 119,  88, 63, 43, 28, 17, 11, 8, 7, 6, 5]
-# prob_dist = [140, 140, 140, 125, 105, 90, 75, 60, 45, 30, 20, 15, 10, 5]
+# prob_dist = [250, 199, 156, 119,  88, 63, 43, 28, 17, 11, 8, 7, 6, 5]
+prob_dist = [140, 140, 140, 125, 105, 90, 75, 60, 45, 30, 20, 15, 10, 5] # 2019
 
 # on input 30 team's power levels as (team_id, power)
 def runmech(powers):
