@@ -13,7 +13,7 @@ class Team:
     self.power = newPower
 
   def reportPower(self):
-    if self.tank == True and random() < 0.33:
+    if self.tank == True and self.power < 100:
       return 0
     else:
       return self.power

@@ -1,8 +1,8 @@
 from random import randint
 import numpy
 
-prob_dist = [250, 199, 156, 119,  88, 63, 43, 28, 17, 11, 8, 7, 6, 5]
-# prob_dist = [140, 140, 140, 125, 105, 90, 75, 60, 45, 30, 20, 15, 10, 5]
+# prob_dist = [250, 199, 156, 119,  88, 63, 43, 28, 17, 11, 8, 7, 6, 5]
+prob_dist = [140, 140, 140, 125, 105, 90, 75, 60, 45, 30, 20, 15, 10, 5] # 2019
 
 # on input 30 team's power levels as (team_id, power)
 def runmech(powers):
@@ -19,11 +19,13 @@ def runmech(powers):
     draftee_score.append(round(i, 2))
 
   draftee_score.sort(reverse=True)
+  # print(draftee_score)
 
   # sorts from worst to best
   powers = sorted(powers, key=lambda x: x[1])
+  print(powers)
   # picks worst 14 teams
-  lottery_entrees = powers[:14]
+  lottery = powers[:14]
 
   # makes sure that no teams have same score
   distinct = -1
@@ -82,7 +84,13 @@ def runmech(powers):
 
 ids = list(range(1,31))
 skill = list(range(85,115))
-print(sorted(runmech(zip(ids,skill)), key=lambda x: x[1]))
+final_output = sorted(runmech(zip(ids,skill)), key=lambda x: x[1])
+# print(final_output)
+# print("~~~~~~~~~~~~~~~~~~")
+# counter = 0
+# for i in range(len(final_output)):
+#   counter += abs(final_output[i][0] - (i+1))
+# print(counter)
 
 
 

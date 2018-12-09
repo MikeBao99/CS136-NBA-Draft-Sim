@@ -7,9 +7,9 @@ import pandas as pd
 from nbamech import runmech
 
 num_teams = 30
-num_years = 100
+num_years = 10
 
-pos_util = [10, 8, 5, 3]
+pos_util = [10, 8, 5, 3, -2]
 init_powers = []
 df = pd.DataFrame(index=range(1,num_teams+1), columns=range(num_years))
 
@@ -25,7 +25,7 @@ def main():
   for i in range(num_teams-5):
     teams.append(Team(i, 85 + 3 * i, 0))
   for i in range(5):
-    teams.append(Team(25+i, 97 + i, 1))
+    teams.append(Team(25+i, 90 + i, 1))
   history = []
   history_report = []
   stdevs = []
@@ -43,14 +43,22 @@ def main():
     powers = [x.reportPower() * (1 + 0.1 * (random() - 0.5)) for x in teams]
     print(powers)
     ind_power = []
+    ave_powers = []
     for i in range(num_teams):
-      ind_power.append((i, powers[i]))
+      try:
+        ave_powers.append((powers[i] + history[i][-1] + history[i][-2]) / 3.0)
+      except:
+        ave_powers.append(powers[i])
+    for i in range(num_teams):
+      ind_power.append((i, ave_powers[i]))
     new_power = sorted(runmech(ind_power), key=lambda x: x[0])
     new_power = [x[1] for x in new_power]
+
     for i in range(num_teams):
       new_power[i] = true_powers[i] + new_power[i] - powers[i]
-    # total = sum(new_power)
-    # new_power = [x * (num_teams * 100.) / total for x in new_power]
+
+    total = sum(new_power)
+    new_power = [x * (num_teams * 100.) / total for x in new_power]
 
     for i in range(num_teams):
       teams[i].setPower(new_power[i])
@@ -75,6 +83,8 @@ def main():
         utilities[i] += pos_util[2]
       elif rankings[i] < 16:
         utilities[i] += pos_util[3]
+      elif rankings[i] > 24:
+        utilities[i] += pos_util[4]
 
     # Create dataframe
     df[year] = rankings
@@ -105,7 +115,7 @@ def main():
     ax[1].set_xlabel("Year")
   plt.show()
 
-  with open('team_rankings.csv', 'w') as out:
+  with open('team_rankings_custom.csv', 'w') as out:
     out.write(df.to_csv())
 
 
