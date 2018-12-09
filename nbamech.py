@@ -33,7 +33,7 @@ def runmech(powers):
     for i in range(len(boundary)):
       if lottery_draw < boundary[i]:
         if i in final_order:
-          continue
+          break
         else:
           final_order.append(i)
           break
@@ -54,11 +54,13 @@ def runmech(powers):
   final_draft_order = worst_fourteen + powers[14:]
 
   for i in range(len(final_draft_order)):
-    powers[i] = (final_draft_order[i][0], final_draft_order[i][1] * 0.9 + draftee_score[i])
+    powers[i] = (final_draft_order[i][0], round(final_draft_order[i][1] * 0.9 + draftee_score[i],1))
 
   return powers
 
-
+# ids = list(range(1,31))
+# skill = list(range(85,115))
+# print(runmech(zip(ids,skill)))
 
 
 
