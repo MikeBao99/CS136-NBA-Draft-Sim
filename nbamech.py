@@ -2,12 +2,23 @@ from random import randint
 import numpy
 
 prob_dist = [250, 199, 156, 119,  88, 63, 43, 28, 17, 11, 8, 7, 6, 5]
+# prob_dist = [140, 140, 140, 125, 105, 90, 75, 60, 45, 30, 20, 15, 10, 5]
 
 # on input 30 team's power levels as (team_id, power)
 def runmech(powers):
   # initalizes scores 1 through 30 for the draftees
-  draftee_score = list(range(1, 31))
-  draftee_score.reverse()
+  # draftee_score = list(range(1, 31))
+  # draftee_score.reverse()
+
+  draftee_score = []
+  for i in numpy.random.uniform(26, 30, size=(1, 5)).tolist()[0]:
+    draftee_score.append(round(i, 2))
+  for i in numpy.random.uniform(21, 24, size=(1, 5)).tolist()[0]:
+    draftee_score.append(round(i, 2))
+  for i in numpy.random.uniform(10, 17, size=(1, 20)).tolist()[0]:
+    draftee_score.append(round(i, 2))
+
+  draftee_score.sort(reverse=True)
 
   # sorts from worst to best
   powers = sorted(powers, key=lambda x: x[1])
@@ -58,9 +69,9 @@ def runmech(powers):
 
   return powers
 
-# ids = list(range(1,31))
-# skill = list(range(85,115))
-# print(runmech(zip(ids,skill)))
+ids = list(range(1,31))
+skill = list(range(85,115))
+print(sorted(runmech(zip(ids,skill)), key=lambda x: x[1]))
 
 
 
