@@ -108,7 +108,7 @@ def main():
     ax[1].set_xlabel("Year")
   plt.show()
 
-  with open('team_rankings.csv', 'w') as out:
+  with open('team_rankings_custom.csv', 'w') as out:
     out.write(df.to_csv())
 
 
