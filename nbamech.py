@@ -38,6 +38,8 @@ def runmech(powers):
           final_order.append(i)
           break
 
+  print(final_order)
+
   first_three = []
   for index in final_order:
     first_three.append(lottery[index])
@@ -52,6 +54,7 @@ def runmech(powers):
   worst_fourteen = first_three + real_final_eleven
 
   final_draft_order = worst_fourteen + powers[14:]
+  print(final_draft_order)
 
   for i in range(len(final_draft_order)):
     powers[i] = (final_draft_order[i][0], round(final_draft_order[i][1] * 0.9 + draftee_score[i],1))
