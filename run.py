@@ -28,6 +28,7 @@ def main():
     teams.append(Team(25+i, 100, 1))
   history = []
   history_report = []
+  history_rank = []
   stdevs = []
   utilities = [0] * num_teams
 
@@ -35,6 +36,7 @@ def main():
   for i in range(num_teams):
     history.append(list())
     history_report.append(list())
+    history_rank.append(list())
 
   # Run Simulation Loop
   for year in range(num_years):
@@ -75,7 +77,8 @@ def main():
         utilities[i] += pos_util[2]
       elif rankings[i] < 16:
         utilities[i] += pos_util[3]
-
+    for i in range(num_teams):
+      history_rank[i].append(rankings[i])
     # Create dataframe
     df[year] = rankings
 
@@ -92,30 +95,34 @@ def main():
 
   print("Non-Tanking Teams:")
   print("\tAverage Power: %f" % (sum([sum(history[i])/float(num_years) for i in range(25)])/25.0))
+  print("\tAverage Ranking: %f" % (sum([sum(history_rank[i])/float(num_years) for i in range(25)])/25.0))
   print("\tAverage Reported Power: %f" % (sum([sum(history_report[i])/float(num_years) for i in range(25)])/25.0))
   print("\tAverage Utility: %f" % (sum(utilities[:25])/float(num_years * 25)))
   print("----------------------------------------")
 
   print("Tanking Teams:")
   print("\tAverage Power: %f" % (sum([sum(history[i])/float(num_years) for i in range(25,30)])/5.0))
+  print("\tAverage Ranking: %f" % (sum([sum(history_rank[i])/float(num_years) for i in range(25,30)])/5.0))
   print("\tAverage Reported Power: %f" % (sum([sum(history_report[i])/float(num_years) for i in range(25,30)])/5.0))
   print("\tAverage Utility: %f" % (sum(utilities[25:])/float(num_years * 5)))
   print("----------------------------------------")
 
   # Visualize Result
   f, ax = plt.subplots(1,2, figsize=(15,8), sharey=True)
-  for i in range(num_teams):
+  for i in [0,29]:
     ax[0].plot(range(num_years), history[i])
     ax[0].set_title("NBA Team Power Ratings over %d Years" % (num_years))
     ax[0].set_ylabel("Power Rating")
     ax[0].set_xlabel("Year")
+    ax[0].legend(['Standard', 'Tanking'])
 
 
-  for i in range(num_teams):
+  for i in [0,29]:
     ax[1].plot(range(num_years), history_report[i])
     ax[1].set_title("NBA Team Reported Power Ratings over %d Years" % (num_years))
     ax[1].set_ylabel("Power Rating")
     ax[1].set_xlabel("Year")
+    ax[1].legend(['Standard', 'Tanking'])
   plt.show()
 
   with open('team_rankings.csv', 'w') as out:

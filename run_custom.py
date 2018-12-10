@@ -28,6 +28,7 @@ def main():
     teams.append(Team(25+i, 100, 1))
   history = []
   history_report = []
+  history_rank = []
   stdevs = []
   utilities = [0] * num_teams
 
@@ -35,6 +36,7 @@ def main():
   for i in range(num_teams):
     history.append(list())
     history_report.append(list())
+    history_rank.append(list())
 
   # Run Simulation Loop
   for year in range(num_years):
@@ -46,7 +48,7 @@ def main():
     ave_powers = []
     for i in range(num_teams):
       try:
-        ave_powers.append((5*powers[i] + 4*history[i][-1] + 4*history[i][-2] + 3*history[i][-3] + 2*history[i][-4]) / 18.0)
+        ave_powers.append((powers[i] + history[i][-1] + history[i][-2]) / 18.0)
       except:
         ave_powers.append(powers[i])
     for i in range(num_teams):
@@ -85,11 +87,13 @@ def main():
         utilities[i] += pos_util[3]
       elif rankings[i] > 24:
         utilities[i] += pos_util[4]
+    for i in range(num_teams):
+      history_rank[i].append(rankings[i])
 
     # Create dataframe
     df[year] = rankings
 
-  indices = [0, 5, 10, 15, 20, 26, 27, 28, 29]
+  indices = [0, 29]
   for i in range(num_teams):
     print("Team %d:" % (i))
     print("\tAverage Power: %f" % (sum(history[i])/float(num_years)))
@@ -99,12 +103,14 @@ def main():
 
   print("Non-Tanking Teams:")
   print("\tAverage Power: %f" % (sum([sum(history[i])/float(num_years) for i in range(25)])/25.0))
+  print("\tAverage Ranking: %f" % (sum([sum(history_rank[i])/float(num_years) for i in range(25)])/25.0))
   print("\tAverage Reported Power: %f" % (sum([sum(history_report[i])/float(num_years) for i in range(25)])/25.0))
   print("\tAverage Utility: %f" % (sum(utilities[:25])/float(num_years * 25)))
   print("----------------------------------------")
 
   print("Tanking Teams:")
   print("\tAverage Power: %f" % (sum([sum(history[i])/float(num_years) for i in range(25,30)])/5.0))
+  print("\tAverage Ranking: %f" % (sum([sum(history_rank[i])/float(num_years) for i in range(25,30)])/5.0))
   print("\tAverage Reported Power: %f" % (sum([sum(history_report[i])/float(num_years) for i in range(25,30)])/5.0))
   print("\tAverage Utility: %f" % (sum(utilities[25:])/float(num_years * 5)))
   print("----------------------------------------")
@@ -112,21 +118,24 @@ def main():
   print("Overall:")
   print("\tAverage Power Variance: %f" % (sum(stdevs)/float(num_years)))
   print("----------------------------------------")
-
+  print(sum([x > y for x,y in zip(history_rank[0], history_rank[29])]))
+  print(sum([x < y for x,y in zip(history_rank[0], history_rank[29])]))
 
   # Visualize Result
-  f, ax = plt.subplots(1,2, figsize=(15,8), sharey=True)
+  f, ax = plt.subplots(1,2, figsize=(14,7), sharey=True)
   for i in indices:
     ax[0].plot(range(num_years), history[i])
     ax[0].set_title("NBA Team Power Ratings over %d Years" % (num_years))
     ax[0].set_ylabel("Power Rating")
     ax[0].set_xlabel("Year")
+    ax[0].legend(['Standard', 'Tanking'])
 
   for i in indices:
     ax[1].plot(range(num_years), history_report[i])
     ax[1].set_title("NBA Team Reported Power Ratings over %d Years" % (num_years))
     ax[1].set_ylabel("Power Rating")
     ax[1].set_xlabel("Year")
+    ax[1].legend(['Standard', 'Tanking'])
   plt.show()
 
   with open('team_rankings_custom.csv', 'w') as out:
