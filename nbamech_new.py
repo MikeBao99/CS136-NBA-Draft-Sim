@@ -3,7 +3,7 @@ import numpy
 
 # prob_dist = [250, 199, 156, 119,  88, 63, 43, 28, 17, 11, 8, 7, 6, 5]
 # prob_dist = [140, 140, 140, 125, 105, 90, 75, 60, 45, 30, 20, 15, 10, 5] # 2019
-prob_dist = [120, 120, 120, 120, 100, 100, 100, 100, 3, 3, 3, 3, 0, 0]
+prob_dist = [20, 140, 140, 140, 100, 100, 100, 100, 30, 30, 30, 30, 20, 20]
 
 # on input 30 team's power levels as (team_id, power)
 def runmech(powers):
@@ -48,7 +48,7 @@ def runmech(powers):
   decided_lottery = []
 
   # number of teams that can win the lottery
-  num_chosen = 8
+  num_chosen = 3
 
   # runs the lottery and appends winner indices to list
   while len(decided_lottery) < num_chosen:

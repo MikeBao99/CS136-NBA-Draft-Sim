@@ -7,7 +7,7 @@ import pandas as pd
 from nbamech_new import runmech
 
 num_teams = 30
-num_years = 100
+num_years = 10
 
 pos_util = [10, 8, 5, 3, -2]
 init_powers = []
@@ -25,7 +25,7 @@ def main():
   for i in range(num_teams-5):
     teams.append(Team(i, 100, 0))
   for i in range(5):
-    teams.append(Team(25+i, 100, 1))
+    teams.append(Team(25+i, 100, 0))
   history = []
   history_report = []
   stdevs = []
@@ -89,7 +89,8 @@ def main():
     # Create dataframe
     df[year] = rankings
 
-  indices = [0, 5, 10, 15, 20, 26, 27, 28, 29]
+  # indices = [0, 5, 10, 15, 20, 26, 27, 28, 29]
+  indices = np.arange(0, 30)
   for i in range(num_teams):
     print("Team %d:" % (i))
     print("\tAverage Power: %f" % (sum(history[i])/float(num_years)))
