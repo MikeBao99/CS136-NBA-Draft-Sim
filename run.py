@@ -9,7 +9,7 @@ from nbamech import runmech
 num_teams = 30
 num_years = 100
 
-pos_util = [10, 8, 5, 3]
+pos_util = [10, 8, 5, 3, -2]
 init_powers = []
 df = pd.DataFrame(index=range(1,num_teams+1), columns=range(num_years))
 
@@ -77,6 +77,8 @@ def main():
         utilities[i] += pos_util[2]
       elif rankings[i] < 16:
         utilities[i] += pos_util[3]
+      elif rankings[i] > 25:
+        utilities[i] += pos_util[4]
     for i in range(num_teams):
       history_rank[i].append(rankings[i])
     # Create dataframe
