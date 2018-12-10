@@ -46,7 +46,7 @@ def main():
     ave_powers = []
     for i in range(num_teams):
       try:
-        ave_powers.append((powers[i] + history[i][-1] + history[i][-2]) / 3.0)
+        ave_powers.append((5*powers[i] + 4*history[i][-1] + 4*history[i][-2] + 3*history[i][-3] + 2*history[i][-4]) / 18.0)
       except:
         ave_powers.append(powers[i])
     for i in range(num_teams):
