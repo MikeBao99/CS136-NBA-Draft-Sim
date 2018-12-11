@@ -28,6 +28,7 @@ def main():
     teams.append(Team(25+i, 100, 0))
   history = []
   history_report = []
+  
   stdevs = []
   utilities = [0] * num_teams
 
